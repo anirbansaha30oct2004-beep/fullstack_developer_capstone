@@ -1,0 +1,7 @@
+[flake8]
+ignore = E501, W291, W292, W293, E302, E231, E122, E131, E261, E275, F401, F841
+exclude = 
+    .git,
+    __pycache__,
+    server/djangoenv/,
+    node_modules/
