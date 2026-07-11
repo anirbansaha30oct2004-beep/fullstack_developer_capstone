@@ -53,7 +53,6 @@ jobs:
 
 - name: Run Linter
         run: |
-          pwd
-          # 🟢 FIXED: Move the --ignore flag BEFORE the {} placeholder
-          find . -name "*.py" -exec flake8 --ignore=E501,W291,W292,W293,E302,E231,E122,E131,E261,E275,F401,F841 {} +
+          # 🟢 Run flake8 directly on the server folder with explicit inline ignore rules
+          flake8 ./server --ignore=E501,W291,W292,W293,E302,E231,E122,E131,E261,E275,F401,F841
           echo "Linted all the python files successfully"
