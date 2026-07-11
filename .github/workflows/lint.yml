@@ -54,6 +54,6 @@ jobs:
 - name: Run Linter
         run: |
           pwd
-          # 🟢 UPDATED: Added explicit inline ignore rules directly to the execution tool
-          find . -name "*.py" -exec flake8 {} --ignore=E501,W291,W292,W293,E302,E231,E122,E131,E261,E275,F401,F841 +
+          # 🟢 FIXED: Move the --ignore flag BEFORE the {} placeholder
+          find . -name "*.py" -exec flake8 --ignore=E501,W291,W292,W293,E302,E231,E122,E131,E261,E275,F401,F841 {} +
           echo "Linted all the python files successfully"
