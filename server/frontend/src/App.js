@@ -2,7 +2,9 @@ import React from 'react';
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import Login from "./components/Login/Login"; 
 import Register from "./components/Register/Register";
-
+import Dealers from './components/Dealers/Dealers';
+import Dealer from "./components/Dealers/Dealer";
+import PostReview from "./components/Dealers/PostReview";
 // 🌐 COMMON NAVBAR LAYOUT COMPONENT
 const Layout = ({ children }) => {
   const navStyle = {
@@ -30,6 +32,7 @@ const Layout = ({ children }) => {
           <Link to="/" style={linkStyle}>Home</Link>
           <Link to="/about" style={linkStyle}>About Us</Link>
           <Link to="/contact" style={linkStyle}>Contact Us</Link>
+          <Link to="/dealers" className="btn btn-primary">View Dealerships</Link>
         </div>
         <div>
           <Link to="/login" style={linkStyle}>Login</Link>
@@ -54,9 +57,23 @@ const Home = () => {
           />
           <div style={{ padding: '30px 20px', backgroundColor: '#fff' }}>
             <h2 style={{ margin: '0 0 20px 0', fontSize: '1.8rem', fontWeight: 'normal' }}>Welcome to our Dealerships!</h2>
-            <button style={{ backgroundColor: '#3ae3f2', color: '#111', border: 'none', padding: '12px 24px', fontSize: '1.1rem', borderRadius: '4px', cursor: 'pointer', fontWeight: '500' }}>
+            <Link 
+              to="/dealers" 
+              style={{ 
+                display: 'inline-block',
+                textDecoration: 'none',
+                backgroundColor: '#3ae3f2', 
+                color: '#111', 
+                border: 'none', 
+                padding: '12px 24px', 
+                fontSize: '1.1rem', 
+                borderRadius: '4px', 
+                cursor: 'pointer', 
+                fontWeight: '500' 
+              }}
+            >
               View Dealerships
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -72,8 +89,6 @@ const AboutUs = () => {
       name: "Person1", 
       title: "Person1 Title", 
       desc: "Some text that explains the person1 in about 2 short sentences.",
-      // ⚠️ To use a local photo, copy your photograph file into your 'frontend/public/' folder 
-      // and rename it to 'myphoto.jpg'. Then you can change this line to: image: "/myphoto.jpg"
       image: "https://cdn.corenexis.com/f/FCFCc3P8bcP.jpg" 
     },
     { 
@@ -102,8 +117,6 @@ const AboutUs = () => {
         <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
           {cards.map(c => (
             <div key={c.id} style={{ border: '1px solid #e0e0e0', borderRadius: '4px', width: '300px', padding: '20px', textAlign: 'center', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}>
-              
-              {/* ✅ FIXED: SVG replaced with the functional image tag element */}
               <img 
                 src={c.image} 
                 alt={c.name} 
@@ -117,7 +130,6 @@ const AboutUs = () => {
                   border: '2px solid #e0e0e0'
                 }} 
               />
-              
               <div style={{ backgroundColor: '#4b3b72', color: 'white', padding: '8px', fontWeight: 'bold', marginBottom: '15px', borderRadius: '2px' }}>
                 {c.name}
               </div>
@@ -165,20 +177,21 @@ const ContactUs = () => {
   );
 };
 
+// ⚙️ ROUTING ENGINE CONTAINER
 function App() {
   return (
     <Routes>
-      {/* Root path displays the full Dealerships Homepage layout */}
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<AboutUs />} />
       <Route path="/contact" element={<ContactUs />} />
-      
-      {/* Auth routes */}
+      <Route path="/dealers" element={<Dealers />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      
-      {/* Redirect wildcards straight back home */}
       <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="/dealers" element={<Dealers />} />
+{/* 🟢 Add the individual dealer view route here: */}
+<Route path="/dealer/:id" element={<Dealer />} />
+<Route path="/postreview/:id" element={<PostReview />} />
     </Routes>
   );
 }

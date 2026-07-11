@@ -24,33 +24,46 @@ const Dealer = () => {
   let reviews_url = root_url+`djangoapp/reviews/dealer/${id}`;
   let post_review = root_url+`postreview/${id}`;
   
-  const get_dealer = async ()=>{
+const get_dealer = async ()=>{
+  try {
     const res = await fetch(dealer_url, {
       method: "GET"
     });
     const retobj = await res.json();
-    
-    if(retobj.status === 200) {
-      let dealerobjs = Array.from(retobj.dealer)
-      setDealer(dealerobjs[0])
-    }
-  }
 
-  const get_reviews = async ()=>{
+    if(retobj.status === 200 && retobj.dealer) {
+      // 🟢 FIXED: Check if it's already an array; if not, wrap it or use it directly
+      let dealerobjs = Array.isArray(retobj.dealer) ? retobj.dealer : [retobj.dealer];
+      if (dealerobjs.length > 0) {
+        setDealer(dealerobjs[0]);
+      }
+    }
+  } catch (err) {
+    console.error("Error fetching dealer details:", err);
+  }
+}
+
+const get_reviews = async ()=>{
+  try {
     const res = await fetch(reviews_url, {
       method: "GET"
     });
     const retobj = await res.json();
-    
-    if(retobj.status === 200) {
+
+    if(retobj.status === 200 && retobj.reviews) {
       if(retobj.reviews.length > 0){
-        setReviews(retobj.reviews)
+        setReviews(retobj.reviews);
       } else {
         setUnreviewed(true);
       }
+    } else {
+      setUnreviewed(true);
     }
+  } catch (err) {
+    console.error("Error fetching reviews:", err);
+    setUnreviewed(true);
   }
-
+}
   const senti_icon = (sentiment)=>{
     let icon = sentiment === "positive"?positive_icon:sentiment==="negative"?negative_icon:neutral_icon;
     return icon;
