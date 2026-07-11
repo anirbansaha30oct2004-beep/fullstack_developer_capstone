@@ -53,6 +53,6 @@ jobs:
 
 - name: Run Linter
         run: |
-          # 🟢 Run flake8 directly on the server folder with explicit inline ignore rules
-          flake8 ./server --ignore=E501,W291,W292,W293,E302,E231,E122,E131,E261,E275,F401,F841
+          # 🟢 FIXED: Explicitly tell flake8 to ignore formatting rules AND exclude the virtual environment
+          flake8 . --ignore=E501,W291,W292,W293,E302,E231,E122,E131,E261,E275,F401,F841 --exclude=./server/djangoenv/,./server/frontend/,node_modules/,.git
           echo "Linted all the python files successfully"
