@@ -5,6 +5,7 @@ import Register from "./components/Register/Register";
 import Dealers from './components/Dealers/Dealers';
 import Dealer from "./components/Dealers/Dealer";
 import PostReview from "./components/Dealers/PostReview";
+
 // 🌐 COMMON NAVBAR LAYOUT COMPONENT
 const Layout = ({ children }) => {
   const navStyle = {
@@ -86,23 +87,23 @@ const AboutUs = () => {
   const cards = [
     { 
       id: 1, 
-      name: "Person1", 
-      title: "Person1 Title", 
-      desc: "Some text that explains the person1 in about 2 short sentences.",
+      name: "Anirban Saha", 
+      title: "Manager", 
+      desc: "Have huge experience to run a company.",
       image: "https://cdn.corenexis.com/f/FCFCc3P8bcP.jpg" 
     },
     { 
       id: 2, 
-      name: "Person2", 
-      title: "Person2 Title", 
-      desc: "Some text that explains the person2 in about 2 short sentences.",
+      name: "li juang", 
+      title: "Assistant manager", 
+      desc: "capable to manage build with a 30 years of experience.",
       image: "https://randomuser.me/api/portraits/women/44.jpg"
     },
     { 
       id: 3, 
-      name: "Person3", 
-      title: "Person3 Title", 
-      desc: "Some text that explains the person3 in about 2 short sentences.",
+      name: "Hizen Rashford", 
+      title: "Chief accountant", 
+      desc: "have 25 years of experience in this field.",
       image: "https://randomuser.me/api/portraits/men/46.jpg"
     }
   ];
@@ -187,11 +188,15 @@ function App() {
       <Route path="/dealers" element={<Dealers />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      
+      {/* 🟢 Individual single dealer routing card element */}
+      <Route path="/dealer/:id" element={<Dealer />} />
+      
+      {/* 🟢 Add the custom consumer review sub-submission path route here */}
+      <Route path="/postreview/:id" element={<PostReview />} />
+      
+      {/* 🔴 Cleaned duplicate route block and placed wildcard handler strictly at the end */}
       <Route path="*" element={<Navigate to="/" replace />} />
-      <Route path="/dealers" element={<Dealers />} />
-{/* 🟢 Add the individual dealer view route here: */}
-<Route path="/dealer/:id" element={<Dealer />} />
-<Route path="/postreview/:id" element={<PostReview />} />
     </Routes>
   );
 }
